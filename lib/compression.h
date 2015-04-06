@@ -4,6 +4,7 @@
 
 #ifndef _SMX_COMPRESSION
 #define _SMX_SOMPRESSION
+
 class Compression {
     private:
 

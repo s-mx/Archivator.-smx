@@ -11,17 +11,15 @@ int main(int argc, char* argv[]) {
     } else {
         input_file = argv[1];
         if (argc == 2) {
-            output_file = argv[1];
-            output_file += ".smx";
+            output_file = std::string(argv[1]) + ".smx";
         } else {
             output_file = argv[2];
         }
     }
 
-    /*
+
     Reader reader(input_file);
     Writer writer(output_file);
     Compression compression(&reader, &writer);
     compression.compress_huffman();
-    */
 }

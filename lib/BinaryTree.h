@@ -6,6 +6,7 @@
 #define _ARCHIVATOR_SMX_BINARYTREE_H_
 
 #include "Node.h"
+#include "PrefixCodes.h"
 #include <map>
 
 class BinaryTree {
@@ -17,6 +18,7 @@ public:
 
     const Node * const get_root() const;
     BinaryTree(const std::map<int, int>& frequency);
+    BinaryTree(const PrefixCodes& codes);
 };
 
 

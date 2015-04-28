@@ -61,3 +61,7 @@ BinaryTree::BinaryTree(const std::map<int, int>& frequency) :
 const Node* const BinaryTree::get_root() const {
     return root;
 }
+
+BinaryTree::BinaryTree(const PrefixCodes &codes) {
+    // TO DO
+}

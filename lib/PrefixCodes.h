@@ -17,6 +17,7 @@ private:
 public:
 
     PrefixCodes(const BinaryTree& tree);
+    PrefixCodes();
     void built_codes_with_dfs(const Node* const ptr_node, Code way);
     size_t size() const;
 
@@ -26,6 +27,7 @@ public:
     std::map<short, Code>::const_iterator cend() const;
     Code& get_code(short val);
     const Code& get_code(short val) const;
+    void add(const std::pair<short, Code>& item);
 };
 
 

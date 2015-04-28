@@ -24,3 +24,12 @@ std::map<int, int> Compression::calculate_frequency(Reader& reader) {
 
     return frequency;
 }
+
+void Compression::decompress_huffman() {
+    PrefixCodes codes;
+
+    read_prefix_codes(reader, codes);
+    BinaryTree tree(codes);
+
+    write_decompressed_file(reader, writer, tree);
+}

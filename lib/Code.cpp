@@ -26,3 +26,27 @@ size_t Code::size_bits() const {
 Code::Code(std::vector<bool> vector) {
     seq = vector;
 }
+
+std::vector<bool>::iterator Code::begin() {
+    return seq.begin();
+}
+
+std::vector<bool>::iterator Code::end() {
+    return seq.end();
+}
+
+std::vector<bool>::const_iterator Code::cbegin() const {
+    return seq.cbegin();
+}
+
+std::vector<bool>::const_iterator Code::cend() const {
+    return seq.cend();
+}
+
+bool Code::operator==(const Code &other) const {
+    return seq == other.seq;
+}
+
+bool Code::operator!=(const Code &other) const {
+    return ! this->operator==(other);
+}

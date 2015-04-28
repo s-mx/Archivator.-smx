@@ -21,6 +21,13 @@ public:
     Code operator+ (int add);
     size_t size_byte() const;
     size_t size_bits() const;
+    std::vector<bool>::iterator begin();
+    std::vector<bool>::iterator end();
+    std::vector<bool>::const_iterator cbegin() const;
+    std::vector<bool>::const_iterator cend() const;
+
+    bool operator == (const Code& other) const;
+    bool operator != (const Code& other) const;
 };
 
 

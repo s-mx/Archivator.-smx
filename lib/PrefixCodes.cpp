@@ -35,7 +35,7 @@ Code &PrefixCodes::get_code(short val) {
 }
 
 const Code &PrefixCodes::get_code(short val) const {
-    return codes[val];
+    return codes.at(val);
 }
 
 std::map<short, Code>::iterator PrefixCodes::begin() {
@@ -52,4 +52,13 @@ std::map<short, Code>::const_iterator PrefixCodes::cbegin() const {
 
 std::map<short, Code>::const_iterator PrefixCodes::cend() const {
     return codes.cend();
+}
+
+PrefixCodes::PrefixCodes() {
+
+}
+
+void PrefixCodes::add(const std::pair<short, Code> &item) {
+    assert(codes.count(item.first) == 0 || codes[item.first] != item.second);
+    codes[item.first] = item.second;
 }

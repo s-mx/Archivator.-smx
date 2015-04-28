@@ -5,6 +5,10 @@
 #define _SMX_WRITER
 class Writer {
 private:
+
+    std::ofstream stream;
+    std::deque<bool> bucket;
+
 public:
 
     Writer(const std::string& name);
@@ -13,6 +17,7 @@ public:
     void write1(size_t);
     void write_code(const Code& code);
     void flush();
+    ~Writer();
 
 };
 #endif

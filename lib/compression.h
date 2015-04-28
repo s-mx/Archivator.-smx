@@ -17,5 +17,6 @@ class Compression {
 
         Compression (Reader*, Writer*);
         void compress_huffman();
+        void decompress_huffman();
 };
 #endif

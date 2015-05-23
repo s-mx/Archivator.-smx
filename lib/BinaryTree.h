@@ -9,6 +9,8 @@
 #include "PrefixCodes.h"
 #include <map>
 
+class PrefixCodes;
+
 class BinaryTree {
 private:
 
@@ -16,7 +18,7 @@ private:
 
 public:
 
-    const Node * const get_root() const;
+    Node * const get_root() const;
     BinaryTree(const std::map<int, int>& frequency);
     BinaryTree(const PrefixCodes& codes);
 };

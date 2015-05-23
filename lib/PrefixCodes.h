@@ -9,6 +9,8 @@
 #include "BinaryTree.h"
 #include <map>
 
+class BinaryTree;
+
 class PrefixCodes {
 private:
 

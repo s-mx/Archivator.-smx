@@ -1,9 +1,36 @@
 #include <bits/stdc++.h>
-#include "lib/reader.h"
-#include "lib/writer.h"
-#include "lib/compression.h"
+#include <writer/writer.h>
+#include <reader/reader.h>
+#include "compression.h"
+
+void f() {
+    std::vector<int> arr;
+    for (int i = 0; i < 256; ++i) {
+        arr.push_back(i);
+    }
+
+    Writer writer("input.txt");
+
+    for (auto it : arr)
+        writer.write2((size_t) it);
+
+    writer.close();
+
+    Reader reader("input.txt");
+
+    std::vector<int> b;
+    unsigned ch;
+    while (reader.read2(ch)) {
+        b.push_back(ch);
+    }
+
+    std::cerr << (arr == b) << std::endl;
+}
 
 int main(int argc, char* argv[]) {
+    f();
+    return 0;
+
     std::string input_file, output_file;
     int command = 0;
     if (argc == 1) {

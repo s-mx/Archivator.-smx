@@ -18,8 +18,9 @@ std::map<int, int> Compression::calculate_frequency(Reader& reader) {
     reader.set_begin();
     std::map<int, int> frequency;
 
-    while (!reader.eof()) {
-        frequency[reader.get_next()]++;
+    char ch;
+    while (reader.getchar(ch)) {
+        frequency[ch]++;
     }
 
     return frequency;

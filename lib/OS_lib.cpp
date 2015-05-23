@@ -2,7 +2,7 @@
 // Created by smx on 25.04.15.
 //
 
-#include "OC_lib.h"
+#include "OS_lib.h"
 #include <unistd.h>
 
 bool check_read_access(const std::string& path) {

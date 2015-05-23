@@ -18,15 +18,19 @@ void write_prefix_codes(Writer *writer, PrefixCodes const &codes) {
 }
 
 void read_prefix_codes(Reader *reader, PrefixCodes & codes) {
-    size_t size_prefix_codes = reader->read4();
+    unsigned size_prefix_codes;
+    assert(reader->read4(size_prefix_codes));
 
     for (size_t i = 0; i < size_prefix_codes; i++) {
-        std::pair<short, Code> current_pair;
+        std::pair<unsigned, Code> current_pair;
 
-        current_pair.first = reader->read1();
+        assert(reader->read1(current_pair.first));
 
-        size_t size_bytes = reader->read1(),
-               size_bits = reader->read1();
+        size_t size_bytes,
+               size_bits;
+
+        assert(reader->read1(size_bytes));
+        assert(reader->read1(size_bits));
 
         current_pair.second = reader->read_code(size_bytes, size_bits);
 
@@ -49,16 +53,17 @@ void write_decompressed_file(Reader *reader, Writer *writer, const BinaryTree & 
 void write_data(Reader *reader, Writer *writer, PrefixCodes const &codes) {
     size_t size_bits = 0;
     reader->set_begin();
-    while (!reader->eof()) {
-        size_bits += codes.get_code(reader->get_next()).size_bits();
+    char ch;
+    while (reader->getchar(ch)) {
+        size_bits += codes.get_code(ch).size_bits();
     }
 
     writer->write4(size_bits/8);
     writer->write4(size_bits);
 
     reader->set_begin();
-    while (!reader->eof()) {
-        writer->write_code(codes.get_code(reader->get_next()));
+    while (reader->getchar(ch)) {
+        writer->write_code(codes.get_code(ch));
     }
 
     writer->flush();

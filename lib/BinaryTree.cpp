@@ -58,7 +58,7 @@ BinaryTree::BinaryTree(const std::map<int, int>& frequency) :
     root = set_vertex.begin()->ptr_root;
 }
 
-const Node* const BinaryTree::get_root() const {
+Node* const BinaryTree::get_root() const {
     return root;
 }
 

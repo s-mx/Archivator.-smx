@@ -1,6 +1,6 @@
 #include <glob.h>
 #include "writer.h"
-#include "OC_lib.h"
+#include "OS_lib.h"
 
 Writer::Writer(std::string const & name){
     assert(check_write_access(name));
@@ -51,15 +51,26 @@ void Writer::write1(size_t t) {
 }
 
 Writer::~Writer() {
-    char out = 0;
-    for (int i = 0; i < 8; i++) {
-        out <<= 1;
-        if (bucket.size()) {
-            out += bucket.front();
-            bucket.pop_front();
-        }
-    }
+    close();
 
-    stream.write((char*) out, 1);
     stream.close();
+}
+
+void Writer::write(char ch) {
+    write1(ch);
+}
+
+void Writer::close() {
+    if (bucket.size()) {
+        char out = 0;
+        for (int i = 0; i < 8; i++) {
+            out <<= 1;
+            if (bucket.size()) {
+                out += bucket.front();
+                bucket.pop_front();
+            }
+        }
+
+        stream.write((char *) &out, 1);
+    }
 }

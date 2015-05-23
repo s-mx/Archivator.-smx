@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
-#include "reader.h"
-#include "writer.h"
+#include "reader/reader.h"
+#include "writer/writer.h"
 
 #ifndef _SMX_COMPRESSION
 #define _SMX_SOMPRESSION

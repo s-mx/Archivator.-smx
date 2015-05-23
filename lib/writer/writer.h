@@ -15,8 +15,10 @@ public:
     void write4(size_t);
     void write2(size_t);
     void write1(size_t);
+    void write(char);
     void write_code(const Code& code);
     void flush();
+    void close();
     ~Writer();
 
 };

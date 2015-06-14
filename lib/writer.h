@@ -12,9 +12,9 @@ private:
 public:
 
     Writer(const std::string& name);
-    void write4(size_t);
-    void write2(size_t);
-    void write1(size_t);
+    void write4(unsigned);
+    void write2(unsigned);
+    void write1(unsigned);
     void write(char);
     void write_code(const Code& code);
     void flush();

@@ -25,7 +25,7 @@ BinaryTree::BinaryTree(const std::map<int, int>& frequency) :
         int freq, symbol;
         Node* ptr_root;
 
-        vertex() {}
+        vertex() : ptr_root(0) {}
         vertex(int _freq, int _symbol, Node *_ptr_root) :
                 freq(_freq), symbol(_symbol), ptr_root(_ptr_root) {}
 
@@ -63,5 +63,22 @@ Node* const BinaryTree::get_root() const {
 }
 
 BinaryTree::BinaryTree(const PrefixCodes &codes) {
-    // TO DO
+    root = new Node(0, 0,-1, false);
+    auto ptr = root;
+    for (auto it = codes.cbegin(); it != codes.cend(); it++) {
+        for (auto elem : it->second.get_seq()) {
+            auto ptr_to = ptr->get_elem(elem);
+            if (ptr_to == 0) {
+                ptr_to = new Node(0, 0, -1, false);
+                (elem ? ptr->right : ptr->left) = ptr_to;
+            }
+
+            ptr = ptr_to;
+        }
+
+        ptr->is_term = true;
+        ptr->code = it->second.get_seq();
+        ptr->symbol = it->first;
+        ptr = root;
+    }
 }

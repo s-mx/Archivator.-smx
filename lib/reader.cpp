@@ -30,18 +30,15 @@ Reader::~Reader() {
     stream.close();
 }
 
-template <typename Type>
-int Reader::read1(Type &ch) {
+int Reader::read1(unsigned int &ch) {
     return read_k(ch, 1);
 }
 
-template <typename Type>
-int Reader::read2(Type &ch) {
+int Reader::read2(unsigned int &ch) {
     return read_k(ch, 2);
 }
 
-template <typename Type>
-int Reader::read4(Type &ch) {
+int Reader::read4(unsigned int &ch) {
     return read_k(ch, 4);
 }
 
@@ -57,14 +54,27 @@ int Reader::pop(unsigned &ch) {
     return 1;
 }
 
-template <typename Type>
-int Reader::read_k(Type &ch, size_t k) {
+template <typename container>
+void print(const container& arr) {
+#ifdef _DEBUG
+
+    for (auto it : arr)
+        std::cerr << it << " ";
+    std::cerr << "\n";
+
+    #endif
+}
+
+
+int Reader::read_k(unsigned int &ch, size_t k) {
     assert(k <= LIMIT);
 
     while (bucket.size() < 8 * k) {
         if (!read_to_bucket())
             return 0;
     }
+
+    print(bucket);
 
     ch = 0;
     for (size_t i = 0; i < 8 * k; i++) {
@@ -83,23 +93,40 @@ int Reader::read_to_bucket() {
     if (stream.read((char*) &ch, 1) == 0)
         return 0;
 
-    for (size_t i = 0; i < 8; i++) {
+    for (int i = 7; i >= 0; i--) {
         bucket.push_back(bool(int(ch) & (1 << i)));
     }
+
+    print(bucket);
 
     return 1;
 }
 
 Code Reader::read_code(size_t size_bytes, size_t size_bits) {
-    return Code(); // Implement later
+    Code res = Code();
+
+    while (bucket.size() < 8 * size_bytes) {
+        if (!read_to_bucket())
+            break;
+    }
+
+    for (int i = 0; i < size_bits; i++) {
+        res += bucket.front();
+        bucket.pop_front();
+    }
+
+    return res;
 }
 
-bool Reader::read_bit() {
-    if (!bucket.size())
-        read_to_bucket();
-    bool res = bucket.front();
+int Reader::read_bit(bool& bit) {
+    if (!bucket.size()) {
+        if (!read_to_bucket())
+            return 0;
+    }
+
+    bit = bucket.front();
     bucket.pop_front();
-    return res;
+    return 1;
 }
 
 Reader::Reader():
@@ -110,4 +137,11 @@ void Reader::open(const std::string &name) {
     opened = true;
     name_file = name;
     stream.open(name, std::ios::binary);
+}
+
+void Reader::close() {
+    opened = false;
+    name_file = "";
+    stream.close();
+    bucket.clear();
 }

@@ -16,8 +16,7 @@ class Reader {
 
         int pop(unsigned &ch);
 
-        template <typename Type>
-        int read_k(Type &ch, size_t k);
+        int read_k(unsigned int &ch, size_t k);
         int read_to_bucket();
 
     public:
@@ -31,14 +30,13 @@ class Reader {
         bool eof();
         int getchar(char &ch);
 
-        template <typename Type>
-        int read1(Type &ch);
-        template <typename Type>
-        int read2(Type &ch);
-        template <typename Type>
-        int read4(Type &ch);
+        int read1(unsigned int &ch);
+        int read2(unsigned int &ch);
+        int read4(unsigned int &ch);
         Code read_code(size_t size_bytes, size_t size_bits);
-        bool read_bit();
+        int read_bit(bool& bit);
+
+        void close();
         ~Reader();
 };
 #endif

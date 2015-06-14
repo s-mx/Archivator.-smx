@@ -9,6 +9,10 @@
 #include <stddef.h>
 #include <bits/stdc++.h>
 
+class Code;
+
+std::ostream& operator << (std::ostream& stream, const Code& code);
+
 class Code {
 private:
 
@@ -18,7 +22,6 @@ public:
 
     Code (std::vector<bool>);
     Code();
-    Code operator+ (int add);
     size_t size_byte() const;
     size_t size_bits() const;
     std::vector<bool>::iterator begin();
@@ -26,8 +29,14 @@ public:
     std::vector<bool>::const_iterator cbegin() const;
     std::vector<bool>::const_iterator cend() const;
 
+    const std::vector<bool>& get_seq() const;
+
+    Code operator+ (int add);
+    Code operator+= (int add);
     bool operator == (const Code& other) const;
     bool operator != (const Code& other) const;
+
+    friend std::ostream& operator <<(std::ostream&, const Code&);
 };
 
 

@@ -30,6 +30,7 @@ public:
     Code& get_code(short val);
     const Code& get_code(short val) const;
     void add(const std::pair<short, Code>& item);
+    void print_stdout() const;
 };
 
 

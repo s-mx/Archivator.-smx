@@ -26,7 +26,7 @@ void read_prefix_codes(Reader *reader, PrefixCodes & codes) {
 
         assert(reader->read1(current_pair.first));
 
-        size_t size_bytes,
+        unsigned size_bytes,
                size_bits;
 
         assert(reader->read1(size_bytes));
@@ -39,12 +39,16 @@ void read_prefix_codes(Reader *reader, PrefixCodes & codes) {
 }
 
 void write_decompressed_file(Reader *reader, Writer *writer, const BinaryTree & tree) {
+    unsigned size_bytes, size_bits;
+    reader->read4(size_bytes);
+    reader->read4(size_bits);
+
     Node * ptr_root = tree.get_root();
-    while (!reader->eof()) {
-        bool bit = reader->read_bit();
+    bool bit;
+    while (size_bits-- && reader->read_bit(bit)) {
         ptr_root = ptr_root->get_elem(bit);
         if (ptr_root->is_term) {
-            writer->write_code(ptr_root->code);
+            writer->write1(ptr_root->symbol);
             ptr_root = tree.get_root();
         }
     }
@@ -58,7 +62,7 @@ void write_data(Reader *reader, Writer *writer, PrefixCodes const &codes) {
         size_bits += codes.get_code(ch).size_bits();
     }
 
-    writer->write4(size_bits/8);
+    writer->write4(int(ceil((size_bits+.0)/8)));
     writer->write4(size_bits);
 
     reader->set_begin();

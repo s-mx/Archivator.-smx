@@ -15,8 +15,13 @@ Code Code::operator+(int add) {
     return new_code;
 }
 
+Code Code::operator+=(int add) {
+    seq.push_back(add);
+    return Code(seq);
+}
+
 size_t Code::size_byte() const {
-    return seq.size() / 8;
+    return size_t(ceil((seq.size() + .0) / 8));
 }
 
 size_t Code::size_bits() const {
@@ -49,4 +54,16 @@ bool Code::operator==(const Code &other) const {
 
 bool Code::operator!=(const Code &other) const {
     return ! this->operator==(other);
+}
+
+std::ostream &operator<<(std::ostream &stream, const Code &code) {
+    for (const auto it : code.seq) {
+        stream << it;
+    }
+
+    return stream;
+}
+
+const std::vector<bool> &Code::get_seq() const {
+    return seq;
 }

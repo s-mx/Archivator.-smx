@@ -62,3 +62,13 @@ void PrefixCodes::add(const std::pair<short, Code> &item) {
     assert(codes.count(item.first) == 0 || codes[item.first] != item.second);
     codes[item.first] = item.second;
 }
+
+void PrefixCodes::print_stdout() const {
+    #ifdef _DEBUG
+
+    for (auto it : codes) {
+        std::cerr << it.first << " " << it.second << "\n";
+    }
+
+    #endif
+}

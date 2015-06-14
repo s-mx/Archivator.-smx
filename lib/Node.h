@@ -19,7 +19,7 @@ public:
     Node (Node *_left = 0, Node *_right = 0, int _symbol = -1, bool state = false) :
             left(_left), right(_right), symbol(_symbol), is_term(state) {}
 
-    Node (int _symbol, bool state) : symbol(_symbol), is_term(state) {}
+    Node (int _symbol, bool state) : left(0), right(0), symbol(_symbol), is_term(state) {}
     Node * get_elem(size_t number);
     const Node *  get_elem(size_t number) const;
 };

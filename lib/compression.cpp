@@ -53,7 +53,6 @@ void print(const std::map<T, P>& container) {
     #endif
 }
 
-#define _DEBUG
 void print(const PrefixCodes& codes) {
     #ifdef _DEBUG
     for (auto it = codes.cbegin(); it != codes.cend(); it++) {

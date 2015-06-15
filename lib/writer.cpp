@@ -29,7 +29,6 @@ void Writer::write_code(const Code &code) {
     flush();
 }
 
-#define _DEBUG
 template <typename C>
 void print(const C& deq) {
     #ifdef _DEBUG
@@ -45,7 +44,7 @@ void print(const C& deq) {
 
 void Writer::write4(unsigned t) {
     for (int i = 31; i >= 0; i--) {
-        bucket.push_back(t & (1 << i));
+        bucket.push_back(bool(t & (1 << i)));
     }
 
     print(bucket);
@@ -54,7 +53,7 @@ void Writer::write4(unsigned t) {
 
 void Writer::write2(unsigned t) {
     for (int i = 15; i >= 0; i--) {
-        bucket.push_back(t & (1<<i));
+        bucket.push_back(bool(t & (1<<i)));
     }
 
     flush();
@@ -62,20 +61,19 @@ void Writer::write2(unsigned t) {
 
 void Writer::write1(unsigned t) {
     for (int i = 7; i >= 0; i--) {
-        bucket.push_back(t & (1<<i));
+        bucket.push_back(bool(t & (1<<i)));
     }
 
     flush();
 }
 
 Writer::~Writer() {
-    close();
-
-    stream.close();
+    if (stream.is_open())
+        close();
 }
 
 void Writer::write(char ch) {
-    write1(ch);
+    write1(unsigned(ch));
 }
 
 void Writer::close() {
@@ -92,4 +90,6 @@ void Writer::close() {
 
         stream.write((char *) &out, 1);
     }
+
+    stream.close();
 }

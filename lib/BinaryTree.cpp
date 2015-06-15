@@ -3,7 +3,6 @@
 //
 
 #include "BinaryTree.h"
-#include <set>
 
 int get_max_value(const std::map<int, int>& cont) {
     if (cont.empty()) {
@@ -38,6 +37,12 @@ BinaryTree::BinaryTree(const std::map<int, int>& frequency) :
     std::set<vertex> set_vertex;
     for (const auto& elem : frequency) {
         set_vertex.insert(vertex(elem.first, elem.second, new Node(elem.first, true)));
+    }
+
+    if (set_vertex.size() == 1) {
+        Node *ptr = new Node(0, 0, set_vertex.begin()->symbol, true);
+        root = new Node(ptr, 0, -1, false);
+        return;
     }
 
     int symbol = get_max_value(frequency) + 1;

@@ -9,5 +9,6 @@
 
 bool check_read_access(const std::string &);
 bool check_write_access(const std::string &);
+bool create_file(const std::string&);
 
 #endif //ARCHIVATOR_SMX_OC_LIB_H

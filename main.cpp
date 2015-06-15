@@ -10,7 +10,7 @@ void print_help() {
             "There are 2 commands:\n"
             "1) compress\n"
             "2) decompress\n"
-            "Each of them need to \"input_name_file\", \"output_name_file\"\n"
+            "Each of them need \"input_name_file\", \"output_name_file\"\n"
             "If \"output_name_file\" is missing there will be created output file with \"input_name_file\".out name";
     std::cout << help_message << "\n";
 }
